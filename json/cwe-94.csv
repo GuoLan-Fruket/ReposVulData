@@ -1,0 +1,22 @@
+cve_id,commit_url,file
+CVE-2012-4406
+CVE-2017-2809,https://github.com/tomoh1r/ansible-vault/commit/3f8f659ef443ab870bb19f95d43543470168ae04,ansible_vault/api.py
+CVE-2018-8097,https://github.com/pyeve/eve/commit/f8f7019ffdf9b4e05faf95e1f04e204aa4c91f98,eve/io/mongo/parser.py
+CVE-2019-19010,https://github.com/progval/Limnoria/commit/3848ae78de45b35c029cc333963d436b9d2f0a35,"[plugins/Math/evaluator.py, plugins/Math/plugin.py]"
+CVE-2021-21433,https://github.com/DEMON1A/Discord-Recon/commit/26e2a084679679cccdeeabbb6889ce120eff7e50,app.py
+CVE-2021-29493
+CVE-2021-39160,https://github.com/jupyterhub/nbgitpuller/commit/07690644f29a566011dd0d7ba14cae3eb0490481,nbgitpuller/pull.py
+CVE-2021-3583,https://github.com/ansible/ansible/commit/4c8c40fd3d4a58defdc80e7d22aa8d26b731353e,lib/ansible/template/__init__.py
+CVE-2021-40323,https://github.com/cobbler/cobbler/commit/d8f60bbf14a838c8c8a1dba98086b223e35fe70a,cobbler/tftpgen.py
+CVE-2021-43837
+CVE-2021-43811,https://github.com/awslabs/sockeye/commit/35dd717a80ae1f04128d79bd0bcf340e2e9d1427,sockeye/config.py
+CVE-2022-29216,https://github.com/tensorflow/tensorflow/commit/c5da7af048611aa29e9382371f0aed5018516cac,tensorflow/python/tools/saved_model_cli.py
+CVE-2022-2054,https://github.com/Nuitka/Nuitka/commit/09647745d7cbb6ff32f9fa948f19d5558b32bcad,nuitka/build/SconsCaching.py
+CVE-2022-45908,https://github.com/PaddlePaddle/Paddle/commit/26c419ca386aeae3c461faf2b828d00b48e908eb,python/paddle/audio/functional/window.py
+CVE-2022-45907,https://github.com/pytorch/pytorch/commit/767f6aa49fe20a2766b9843d01e3b7f7793df6a3,torch/jit/annotations.py
+CVE-2021-4315,https://github.com/NYUCCL/psiTurk/commit/47787e15cecd66f2aa87687bf852ae0194a4335f,psiturk/experiment.py
+CVE-2023-0297
+CVE-2023-34237
+CVE-2023-26145,https://github.com/dgilland/pydash/commit/6ff0831ad285fff937cafd2a853f20cc9ae92021,src/pydash/helpers.py
+CVE-2023-41319
+CVE-2023-48699,https://github.com/ubertidavide/fastbots/commit/73eb03bd75365e112b39877e26ef52853f5e9f57,fastbots/page.py
