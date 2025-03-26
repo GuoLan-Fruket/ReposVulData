@@ -4,7 +4,7 @@ CVE-2012-3360,https://github.com/openstack/nova/commit/2427d4a99bed35baefd8f17ba
 CVE-2015-8309,https://github.com/devsnd/cherrymusic/commit/62dec34a1ea0741400dd6b6c660d303dcd651e86,cherrymusicserver/httphandler.py
 CVE-2017-14695,https://github.com/saltstack/salt/commit/80d90307b07b3703428ecbb7c8bb468e28a9ae6d,salt/utils/verify.py
 CVE-2018-10897,https://github.com/rpm-software-management/yum-utils/commit/6a8de061f8fdc885e74ebe8c94625bf53643b71c,reposync.py
-CVE-2018-20332,https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/commit/a846b7664eda3a4c51a452e00638cf7337dc2013,"[plugin/controllers/rest_fs_access.py, plugin/controllers/utilities.py]"
+CVE-2018-20332,https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/commit/a846b7664eda3a4c51a452e00638cf7337dc2013,"[plugin/controllers/file.py, plugin/controllers/utilities.py]"
 CVE-2019-14751
 CVE-2020-8545,https://github.com/CIRCL/AIL-framework/commit/e808840f957c810b8e3944cba808716dc722581b,bin/Global.py
 CVE-2019-20916,https://github.com/gzpan123/pip/commit/a4c735b14a62f9cb864533808ac63936704f2ace,src/pip/_internal/download.py

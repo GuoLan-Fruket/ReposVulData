@@ -128,12 +128,7 @@ def list_full_wiki():
 def list_wiki(folderpath):
     folder_list = []
     app.logger.info("Showing >>> 'all files'")
-    safe_folder = cfg.wiki_directory
-    requested_path = os.path.join(cfg.wiki_directory,folderpath) 
-    print(requested_path)
-    if os.path.commonprefix((os.path.realpath(requested_path),os.path.realpath(safe_folder))) != os.path.realpath(safe_folder): 
-        return index()
-    for root, subfolder, files in os.walk(requested_path):
+    for root, subfolder, files in os.walk(os.path.join(cfg.wiki_directory, folderpath)):
         if root[-1] == '/':
             root = root[:-1]
         for item in files:

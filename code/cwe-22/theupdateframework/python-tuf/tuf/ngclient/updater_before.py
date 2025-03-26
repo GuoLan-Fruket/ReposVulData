@@ -284,21 +284,19 @@ class Updater:
         return self._fetcher.download_bytes(url, length)
 
     def _load_local_metadata(self, rolename: str) -> bytes:
-        encoded_name = parse.quote(rolename, "")
-        with open(os.path.join(self._dir, f"{encoded_name}.json"), "rb") as f:
+        with open(os.path.join(self._dir, f"{rolename}.json"), "rb") as f:
             return f.read()
 
     def _persist_metadata(self, rolename: str, data: bytes) -> None:
         """Write metadata to disk atomically to avoid data loss."""
 
         # encode the rolename to avoid issues with e.g. path separators
-        encoded_name = parse.quote(rolename, "")
-        filename = os.path.join(self._dir, f"{encoded_name}.json")
+        original_filename = os.path.join(self._dir, f"{rolename}.json")
         with tempfile.NamedTemporaryFile(
             dir=self._dir, delete=False
         ) as temp_file:
             temp_file.write(data)
-        os.replace(temp_file.name, filename)
+        os.replace(temp_file.name, original_filename)
 
     def _load_root(self) -> None:
         """Load remote root metadata.
