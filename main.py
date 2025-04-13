@@ -56,7 +56,7 @@ def data(write_file=False):
         except FileNotFoundError:
             df_gt = pd.DataFrame()
         # index, language, cve_id, commit, source_path, sink_path, barrier_path, source_line, sink_line,
-        # barrier_line, source_code, sink_code,barrier_code, is_vulnerability
+        # barrier_line, source_code, sink_code,barrier_code, security
         new_data = {
             'index': [],
             'language': [],
@@ -71,7 +71,7 @@ def data(write_file=False):
             'source_code': [],
             'sink_code': [],
             'barrier_code': [],
-            'is_vulnerability': []
+            'security': []
         }
         for index, row in df.iterrows():
             if pd.isna(row['commit_url']):
@@ -115,7 +115,7 @@ def data(write_file=False):
                             new_data['source_code'] += [None, None]
                             new_data['sink_code'] += [None, None]
                             new_data['barrier_code'] += [None, None]
-                            new_data['is_vulnerability'] += [1, 0]
+                            new_data['security'] += [1, 0]
                             break
         new_df = pd.DataFrame(new_data)
         df_gt = pd.concat([df_gt, new_df], ignore_index=True)

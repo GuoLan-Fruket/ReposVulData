@@ -83,7 +83,7 @@ class AcceptTermsView(CreateView, GetTermsViewMixin):
         parsed = urlparse(return_url)
         if parsed.hostname and parsed.hostname not in settings.ALLOWED_HOSTS:
             # Make sure the return url is a relative path or a trusted hostname
-            return_url = '/'
+            terms_ids = ''
 
         if not terms_ids:  # pragma: nocover
             return HttpResponseRedirect(return_url)

@@ -1,4 +1,4 @@
-index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,is_vulnerability
+index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,security
 cwe-74,python,CVE-2014-4678,5429b85b9f6c2e640074176f36ff05fd5e4d1916,code/cwe-74/ansible/ansible/lib/ansible/utils/__init__.py,code/cwe-74/ansible/ansible/lib/ansible/utils/__init__.py,code/cwe-74/ansible/ansible/lib/ansible/utils/__init__.py,,,,,,,1
 cwe-74,python,CVE-2014-4678,5429b85b9f6c2e640074176f36ff05fd5e4d1916,code/cwe-74/ansible/ansible/lib/ansible/utils/__init___before.py,code/cwe-74/ansible/ansible/lib/ansible/utils/__init___before.py,code/cwe-74/ansible/ansible/lib/ansible/utils/__init___before.py,,,,,,,0
 cwe-74,python,CVE-2020-7698,e8446605eb2424717418eae199ec7aad573da2d2,code/cwe-74/Gerapy/Gerapy/gerapy/server/core/views.py,code/cwe-74/Gerapy/Gerapy/gerapy/server/core/views.py,code/cwe-74/Gerapy/Gerapy/gerapy/server/core/views.py,,,,,,,1

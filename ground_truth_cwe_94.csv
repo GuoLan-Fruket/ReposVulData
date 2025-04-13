@@ -1,4 +1,4 @@
-index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,is_vulnerability
+index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,security
 cwe-94,python,CVE-2017-2809,3f8f659ef443ab870bb19f95d43543470168ae04,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api.py,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api.py,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api.py,,,,,,,1
 cwe-94,python,CVE-2017-2809,3f8f659ef443ab870bb19f95d43543470168ae04,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api_before.py,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api_before.py,code/cwe-94/tomoh1r/ansible-vault/ansible_vault/api_before.py,,,,,,,0
 cwe-94,python,CVE-2018-8097,f8f7019ffdf9b4e05faf95e1f04e204aa4c91f98,code/cwe-94/pyeve/eve/eve/io/mongo/parser.py,code/cwe-94/pyeve/eve/eve/io/mongo/parser.py,code/cwe-94/pyeve/eve/eve/io/mongo/parser.py,,,,,,,1

@@ -210,7 +210,7 @@ class CookieAuthHelper(Folder, BasePlugin):
                 if query:
                     if not query.startswith('?'):
                         query = '?' + query
-                    came_from = came_from + query
+                    # came_from = came_from + query
             else:
                 # If came_from contains a value it means the user
                 # must be coming through here a second time

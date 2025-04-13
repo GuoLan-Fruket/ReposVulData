@@ -1,4 +1,4 @@
-index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,is_vulnerability
+index,language,cve_id,commit,source_path,sink_path,barrier_path,source_line,sink_line,barrier_line,source_code,sink_code,barrier_code,security
 cwe-78,python,CVE-2012-3366,a524967e8d5c4c22e49cd619aed20c87a316c0be,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger.py,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger.py,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger.py,,,,,,,1
 cwe-78,python,CVE-2012-3366,a524967e8d5c4c22e49cd619aed20c87a316c0be,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger_before.py,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger_before.py,code/cwe-78/Bcfg2/bcfg2/src/lib/Server/Plugins/Trigger_before.py,,,,,,,0
 cwe-78,python,CVE-2017-16667,cef81d0da93ff601252607df3db1a48f7f6f01b3,code/cwe-78/bit-team/backintime/qt4/plugins/notifyplugin.py,code/cwe-78/bit-team/backintime/qt4/plugins/notifyplugin.py,code/cwe-78/bit-team/backintime/qt4/plugins/notifyplugin.py,,,,,,,1

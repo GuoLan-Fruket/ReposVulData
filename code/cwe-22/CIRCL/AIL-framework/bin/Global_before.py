@@ -35,7 +35,7 @@ def rreplace(s, old, new, occurrence):
     return new.join(li)
 
 
-if __name__ == '__main__':
+def main():
     publisher.port = 6380
     publisher.channel = 'Script'
     processed_paste = 0
