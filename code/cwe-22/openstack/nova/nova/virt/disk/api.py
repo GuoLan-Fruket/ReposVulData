@@ -272,8 +272,8 @@ def setup_container(image, container_dir=None, use_cow=False):
             return img
         else:
             raise exception.Error(img.errors)
-    except Exception, exn:
-        LOG.exception(_('Failed to mount filesystem: %s'), exn)
+    except Exception as exn:
+        LOG.exception(('Failed to mount filesystem: %s'), exn)
 
 
 def destroy_container(img):
@@ -287,8 +287,8 @@ def destroy_container(img):
     try:
         if img:
             img.umount()
-    except Exception, exn:
-        LOG.exception(_('Failed to remove container: %s'), exn)
+    except Exception as exn:
+        LOG.exception(('Failed to remove container: %s'), exn)
 
 
 def inject_data_into_fs(fs, key, net, metadata, admin_password, execute):
