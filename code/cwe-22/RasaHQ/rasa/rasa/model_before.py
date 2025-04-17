@@ -223,8 +223,8 @@ def unpack_model(
     """
     import tarfile
 
-    if working_directory is None:
-        working_directory = tempfile.mkdtemp()
+    # if working_directory is None:
+    #     working_directory = tempfile.mkdtemp()
 
     # All files are in a subdirectory.
     try:

@@ -27,7 +27,7 @@ def py2graphAndQuery(cwe_list, DEBUG=True):
     python_script_path = r'D:\【净土】\大三上学习\科研课堂\PullRequest\Python2Graph'
     local_jar_dir_path = r'D:\IdeaProjects\ResearchClassroom\QVoG-Engine\target'
     config_path = r"D:\IdeaProjects\ResearchClassroom\QVoG-Engine\target\config.json"
-    timeout = 300
+    timeout = 600
 
     for cwe_id in cwe_list:
         root = f".\\code\\cwe-{cwe_id}"
@@ -399,8 +399,8 @@ def analysis(cwe_list, json_file_path, txt_file_path):
             for row in json_data['rows']:
                 source_path_rel = row[0][1: row[0].find(')')]
                 sink_path_rel = row[1][1: row[1].find(')')]
-                # if source_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_source'] or sink_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_sink']:
-                #     continue
+                if source_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_source'] and sink_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_sink']:
+                    continue
                 for pair in root[f"cwe-{cwe}"][file_path]['pred_pair']:
                     if pair[0] == source_path_rel and pair[1] == sink_path_rel:
                         break
@@ -461,7 +461,7 @@ def analysis(cwe_list, json_file_path, txt_file_path):
 
 
 if __name__ == '__main__':
-    cwe_list = [79]
+    cwe_list = [22]
     # py2graphAndQuery(cwe_list, False)
     # py2graphAndLineNumberQuery(cwe_list, False)
-    analysis(cwe_list, "qvog_eval\\2025-04-14-20-40-56.json", "qvog_eval\\2025-04-14-21-26-26.txt")
+    analysis(cwe_list, "qvog_eval\\2025-04-17-15-48-34.json", "qvog_eval\\2025-04-17-17-04-58.txt")
