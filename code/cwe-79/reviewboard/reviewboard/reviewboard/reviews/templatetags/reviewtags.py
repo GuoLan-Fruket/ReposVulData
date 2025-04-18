@@ -273,7 +273,7 @@ def reply_list(context, review, comment, context_type, context_id):
 
         return s
     else:
-        raise TemplateSyntaxError, "Invalid context type passed"
+        raise TemplateSyntaxError("Invalid context type passed")
 
     return s
 
@@ -329,8 +329,8 @@ def dashboard_entry(context, level, text, view, group=None):
         if view == 'starred':
             starred = True
     else:
-        raise template.TemplateSyntaxError, \
-            "Invalid view type '%s' passed to 'dashboard_entry' tag." % view
+        raise template.TemplateSyntaxError(
+            "Invalid view type '%s' passed to 'dashboard_entry' tag." % view)
 
     return {
         'MEDIA_URL': settings.MEDIA_URL,
@@ -514,9 +514,9 @@ def render_star(user, obj):
             starred = \
                 profile.starred_groups.filter(pk=obj.id).count() > 0
     else:
-        raise template.TemplateSyntaxError, \
+        raise template.TemplateSyntaxError(
             "star tag received an incompatible object type (%s)" % \
-            type(obj)
+                                           type(obj))
 
     if starred:
         image_alt = _("Starred")

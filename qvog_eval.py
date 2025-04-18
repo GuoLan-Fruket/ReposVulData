@@ -238,43 +238,30 @@ def analysis(cwe_list, json_file_path, txt_file_path):
             pred_result = {
                 'cwe': cwe,
                 'file': file_path,
-                'json': ""
+                'json': "",
+                'json_detail': ""
             }
 
-            # 找到 JSON 开始的位置
+            next_cwe = None
             json_start_index = None
-            for i, line in enumerate(lines):
-                if line.strip().startswith("{") and line.strip().endswith("}"):
-                    json_start_index = i
-                    break
-            try:
-                pred_result['json_detail'] = json.loads(lines[json_start_index])
-            except Exception as e:
-                print(f"Error decoding JSON: {lines[json_start_index]}")
-                continue
-            del lines[:json_start_index + 1]
-
-            json_start_index = None
-            flag = False
+            json_end_index = None
             for i, line in enumerate(lines):
                 if "cwe:" in line:
-                    flag = True
+                    next_cwe = i
                     break
-                if line.strip().startswith("{"):
+                if line.strip().startswith("{") and line.strip().endswith("}"):
+                    try:
+                        pred_result['json_detail'] = json.loads(lines[i])
+                    except Exception as e:
+                        print(f"Error decoding JSON: {lines[i]}")
+                        continue
+                if line.strip() == '{':
                     json_start_index = i
-                    break
-            if flag:
-                pred_results.append(pred_result)
-                continue
-            if json_start_index is not None:
-                json_lines = []
-                for line in lines[json_start_index:]:
-                    json_lines.append(line)
-                    if line.strip().startswith("}"):
-                        break
+                if line.strip() == '}':
+                    json_end_index = i
 
-                json_str = "\n".join(json_lines)
-
+            if json_start_index is not None and json_end_index is not None:
+                json_str = "\n".join(lines[json_start_index:json_end_index + 1])
                 try:
                     if json_str.find("headers") > 0:
                         json_data = json.loads(json_str)
@@ -283,8 +270,9 @@ def analysis(cwe_list, json_file_path, txt_file_path):
                 except json.JSONDecodeError as e:
                     print(f"Failed to parse JSON: {json_str}")
 
-                # 移除已处理的行
-                del lines[:json_start_index + len(json_lines)]
+            pred_results.append(pred_result)
+            if next_cwe is not None:
+                del lines[:next_cwe]
         else:
             lines.pop(0)
 
@@ -378,9 +366,10 @@ def analysis(cwe_list, json_file_path, txt_file_path):
             json_data = result['json']
             json_detail = result['json_detail']
 
-            root[f"cwe-{cwe}"][file_path]['pred_source'] = json_detail['pred_source']
-            root[f"cwe-{cwe}"][file_path]['pred_sink'] = json_detail['pred_sink']
-            root[f"cwe-{cwe}"][file_path]['pred_barrier'] = json_detail['pred_barrier']
+            if json_detail != "":
+                root[f"cwe-{cwe}"][file_path]['pred_source'] = json_detail['pred_source']
+                root[f"cwe-{cwe}"][file_path]['pred_sink'] = json_detail['pred_sink']
+                root[f"cwe-{cwe}"][file_path]['pred_barrier'] = json_detail['pred_barrier']
             if json_data != "":
                 for row in json_data['rows']:
                     source_path_rel = row[0][1: row[0].find(')')]
@@ -399,7 +388,7 @@ def analysis(cwe_list, json_file_path, txt_file_path):
             for row in json_data['rows']:
                 source_path_rel = row[0][1: row[0].find(')')]
                 sink_path_rel = row[1][1: row[1].find(')')]
-                if source_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_source'] or sink_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_sink']:
+                if source_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_source'] and sink_path_rel not in root[f"cwe-{cwe}"][file_path]['pred_sink']:
                     continue
                 if source_path_rel.split(":")[0] != sink_path_rel.split(":")[0]:
                     continue
@@ -466,4 +455,4 @@ if __name__ == '__main__':
     cwe_list = [79]
     # py2graphAndQuery(cwe_list, False)
     # py2graphAndLineNumberQuery(cwe_list, False)
-    analysis(cwe_list, "qvog_eval\\2025-04-14-19-13-10.json", "qvog_eval\\2025-04-14-19-56-41.txt")
+    analysis(cwe_list, "qvog_eval\\2025-04-18-23-43-19.json", "qvog_eval\\2025-04-19-00-51-13.txt")

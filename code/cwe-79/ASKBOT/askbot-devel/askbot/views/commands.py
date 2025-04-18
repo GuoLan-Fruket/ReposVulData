@@ -140,7 +140,7 @@ def manage_inbox(request):
         else:
             #todo: show error page but no-one is likely to get here
             return HttpResponseRedirect(reverse('index'))
-    except Exception, e:
+    except Exception as e:
         message = unicode(e)
         if message == '':
             message = _('Oops, apologies - there was some error')
@@ -426,7 +426,7 @@ def vote(request):
 
         data = simplejson.dumps(response_data)
 
-    except Exception, e:
+    except Exception as e:
         response_data['message'] = unicode(e)
         response_data['success'] = 0
         data = simplejson.dumps(response_data)
@@ -897,7 +897,7 @@ def close(request, id):#close question
                 'form': form,
             }
             return render(request, 'close.html', data)
-    except exceptions.PermissionDenied, e:
+    except exceptions.PermissionDenied as e:
         request.user.message_set.create(message = unicode(e))
         return HttpResponseRedirect(question.get_absolute_url())
 
@@ -927,7 +927,7 @@ def reopen(request, id):#re-open question
             }
             return render(request, 'reopen.html', data)
 
-    except exceptions.PermissionDenied, e:
+    except exceptions.PermissionDenied as e:
         request.user.message_set.create(message = unicode(e))
         return HttpResponseRedirect(question.get_absolute_url())
 
