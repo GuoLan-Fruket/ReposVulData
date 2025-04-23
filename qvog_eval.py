@@ -1,6 +1,7 @@
 import time
 
 import pandas as pd
+from Scripts.bottle import delete
 
 import json
 import os
@@ -27,7 +28,7 @@ def py2graphAndQuery(cwe_list, DEBUG=True):
     python_script_path = r'D:\【净土】\大三上学习\科研课堂\PullRequest\Python2Graph'
     local_jar_dir_path = r'D:\IdeaProjects\ResearchClassroom\QVoG-Engine\target'
     config_path = r"D:\IdeaProjects\ResearchClassroom\QVoG-Engine\target\config.json"
-    timeout = 600
+    timeout = 300
 
     for cwe_id in cwe_list:
         root = f".\\code\\cwe-{cwe_id}"
@@ -450,9 +451,108 @@ def analysis(cwe_list, json_file_path, txt_file_path):
         with open("result.json", 'w') as f:
             json.dump(root, f, indent=4)
 
+def modify(cwe_list, file_path):
+    def printf(file_path, file_rel):
+        file_name, lineno = file_rel.split(":")
+        with open(os.path.join(file_path, file_name), 'r') as f:
+            lines = f.readlines()
+        print(file_path, file_name, lineno)
+        print(lines[int(lineno) - 1])
+
+    with open(file_path, 'r') as f:
+        root = json.load(f)
+
+    for cwe in cwe_list:
+        for file_path, file_obj in root[f"cwe-{cwe}"].items():
+            for real_source in file_obj['real_source']:
+                for pred_source in file_obj['pred_source']:
+                    if real_source == pred_source:
+                        break
+                else:
+                    printf(file_path, real_source)
+            for real_sink in file_obj['real_sink']:
+                for pred_sink in file_obj['pred_sink']:
+                    if real_sink == pred_sink:
+                        break
+                else:
+                    printf(file_path, real_sink)
+            print("*" * 40)
+
+
+def analysis2(cwe_list, file_path, map):
+    with open(file_path, 'r') as f:
+        root = json.load(f)
+
+    for cwe in cwe_list:
+        for file_path, file_obj in root[f"cwe-{cwe}"].items():
+            for pair_name in ['pred_pair', 'real_pair']:
+                file_obj[pair_name] = [pair for pair in file_obj[pair_name] if 'before' in pair[0] and 'before' in pair[1]]
+            for index_name in ['real_source', 'real_sink', 'real_barrier', 'pred_source', 'pred_sink', 'pred_barrier']:
+                file_obj[index_name] = [x for x in file_obj[index_name] if 'before' in x]
+
+    for cwe in cwe_list:
+        pair_cal = [0, 0, 0]
+        source_cal = [0, 0, 0]
+        sink_cal = [0, 0, 0]
+        barrier_cal = [0, 0, 0]
+        for file_path, file_obj in root[f"cwe-{cwe}"].items():
+            cross = 0
+            for pair in file_obj['pred_pair']:
+                for real_pair in file_obj['real_pair']:
+                    if pair[0] == real_pair[0] and pair[1] == real_pair[1]:
+                        cross += 1
+            # print(f"cwe-{cwe}, {file_path}, cross = {cross}")
+            pair_cal[0] += len(file_obj['real_pair']) - cross
+            pair_cal[1] += cross
+            pair_cal[2] += len(file_obj['pred_pair']) - cross
+
+            cross = 0
+            for source in file_obj['pred_source']:
+                for real_source in file_obj['real_source']:
+                    if source == real_source:
+                        cross += 1
+                        break
+            source_cal[0] += len(file_obj['real_source']) - cross
+            source_cal[1] += cross
+            source_cal[2] += len(file_obj['pred_source']) - cross
+
+            cross = 0
+            for sink in file_obj['pred_sink']:
+                for real_sink in file_obj['real_sink']:
+                    if sink == real_sink:
+                        cross += 1
+                        break
+            sink_cal[0] += len(file_obj['real_sink']) - cross
+            sink_cal[1] += cross
+            sink_cal[2] += len(file_obj['pred_sink']) - cross
+
+            cross = 0
+            for barrier in file_obj['pred_barrier']:
+                for real_barrier in file_obj['real_barrier']:
+                    if barrier == real_barrier:
+                        cross += 1
+                        break
+            barrier_cal[0] += len(file_obj['real_barrier']) - cross
+            barrier_cal[1] += cross
+            barrier_cal[2] += len(file_obj['pred_barrier']) - cross
+
+        print(f"> deepseek-v3, {map[cwe_list[0]][0]}, {map[cwe_list[0]][1]}\n> ")
+        print(f"> cwe-{cwe}\n> \n> pair_cal = {pair_cal}\n> \n> source_cal = {source_cal}\n> ")
+        print(f"> sink_cal = {sink_cal}\n> \n> barrier_cal = {barrier_cal}")
+
+    # print(json.dumps(root, indent=4))
+
 
 if __name__ == '__main__':
-    cwe_list = [79]
+    map = {
+        79: ["qvog_eval\\2025-04-23-11-55-28.json", "qvog_eval\\2025-04-23-12-48-50.txt"],
+        22: ["qvog_eval\\2025-04-17-15-48-34.json", "qvog_eval\\2025-04-17-17-04-58.txt"],
+        601: ["qvog_eval\\2025-04-13-00-11-54.json", "qvog_eval\\2025-04-14-18-12-50.txt"]
+
+    }
+    cwe_list = [601]
     # py2graphAndQuery(cwe_list, False)
     # py2graphAndLineNumberQuery(cwe_list, False)
-    analysis(cwe_list, "qvog_eval\\2025-04-18-23-43-19.json", "qvog_eval\\2025-04-19-00-51-13.txt")
+    analysis(cwe_list, map[cwe_list[0]][0], map[cwe_list[0]][1])
+    # modify(cwe_list, "result.json")
+    analysis2(cwe_list, "result.json", map)
